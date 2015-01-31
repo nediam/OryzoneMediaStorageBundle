@@ -11,25 +11,24 @@ namespace Oryzone\Bundle\MediaStorageBundle\Filesystem;
  * file that was distributed with this source code (Resources/meta/LICENSE).
  */
 
-use Knp\Bundle\GaufretteBundle\FilesystemMap;
-
-use Oryzone\MediaStorage\Filesystem\FilesystemFactoryInterface,
+use League\Flysystem\MountManager,
+    Oryzone\MediaStorage\Filesystem\FilesystemFactoryInterface,
     Oryzone\MediaStorage\Exception\InvalidArgumentException;
 
 class MapFilesystemFactory implements FilesystemFactoryInterface
 {
 
     /**
-     * @var \Knp\Bundle\GaufretteBundle\FilesystemMap $map
+     * @var MountManager $map
      */
     protected $map;
 
     /**
      * Constructor
      *
-     * @param \Knp\Bundle\GaufretteBundle\FilesystemMap $map
+     * @param MountManager $map
      */
-    public function __construct(FilesystemMap $map)
+    public function __construct(MountManager $map)
     {
         $this->map = $map;
     }
@@ -40,7 +39,7 @@ class MapFilesystemFactory implements FilesystemFactoryInterface
     public function get($filesystemName)
     {
         try {
-            return $this->map->get($filesystemName);
+            return $this->map->getFilesystem($filesystemName);
         } catch (\InvalidArgumentException $e) {
             throw new InvalidArgumentException(sprintf('Cannot find a filesystem named "%s"', $filesystemName), 0, $e);
         }
