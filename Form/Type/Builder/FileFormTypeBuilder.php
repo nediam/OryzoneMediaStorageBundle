@@ -1,6 +1,6 @@
 <?php
 
-namespace Oryzone\Bundle\MediaStorageBundle\Document;
+namespace Oryzone\Bundle\MediaStorageBundle\Form\Type\Builder;
 
 /*
  * This file is part of the Oryzone/MediaStorage package.
@@ -11,9 +11,7 @@ namespace Oryzone\Bundle\MediaStorageBundle\Document;
  * file that was distributed with this source code (Resources/meta/LICENSE).
  */
 
-use Oryzone\MediaStorage\Model\Media as BaseMedia;
-
-abstract class Media extends BaseMedia
+class FileFormTypeBuilder extends DefaultFormTypeBuilder
 {
 
 }

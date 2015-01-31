@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
@@ -5,13 +6,17 @@
 
     <mapped-superclass name="Oryzone\Bundle\MediaStorageBundle\Document\Media">
 
-        <field name="mediaId" fieldName="media_id" type="string"/>
+        <field name="name" column="name" type="string" length="255" />
 
-        <field name="mediaName" fieldName="media_name" type="string"/>
+        <field name="context" column="context" type="string" length="255" />
 
-        <field name="mediaType" fieldName="media_type" type="string"/>
+        <field name="variants" column="variants" type="hash" />
 
-        <field name="external" fieldName="is_external" type="boolean"/>
+        <field name="meta" column="meta" type="hash" />
+
+        <field name="createdAt" column="createdAt" type="date"/>
+
+        <field name="modifiedAt" column="modifiedAt" type="date"/>
 
     </mapped-superclass>
 

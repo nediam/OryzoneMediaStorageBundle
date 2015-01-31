@@ -2,8 +2,18 @@
 
 namespace Oryzone\Bundle\MediaStorageBundle\Entity;
 
-use Oryzone\Bundle\MediaStorageBundle\Model\Media as BaseMedia;
+/*
+ * This file is part of the Oryzone/MediaStorage package.
+ *
+ * (c) Luciano Mammino <lmammino@oryzone.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code (Resources/meta/LICENSE).
+ */
 
-class Media extends BaseMedia
+use Oryzone\MediaStorage\Model\Media as BaseMedia;
+
+abstract class Media extends BaseMedia
 {
+
 }

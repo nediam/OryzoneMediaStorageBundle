@@ -2,10 +2,20 @@
 
 namespace Oryzone\Bundle\MediaStorageBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+/*
+ * This file is part of the Oryzone/MediaStorage package.
+ *
+ * (c) Luciano Mammino <lmammino@oryzone.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code (Resources/meta/LICENSE).
+ */
+
+use Symfony\Component\DependencyInjection\ContainerBuilder,
+    Symfony\Component\Config\FileLocator,
+    Symfony\Component\HttpKernel\DependencyInjection\Extension,
+    Symfony\Component\DependencyInjection\Loader,
+    Symfony\Component\DependencyInjection\Alias;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -14,6 +24,7 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class OryzoneMediaStorageExtension extends Extension
 {
+
     /**
      * {@inheritDoc}
      */
@@ -22,10 +33,20 @@ class OryzoneMediaStorageExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $toLoad = array('cdn.xml', 'context.xml', 'downloader.xml', 'event.xml', 'filesystem.xml', 'form.xml',
+            'integration.xml', 'media_storage.xml', 'naming_strategy.xml', 'persistence.xml', 'provider.xml', 'templating.xml');
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        foreach($toLoad as $file)
+            $loader->load($file);
 
-        if (isset($config['enabled']) && $config['enabled']) {
-            $loader->load('services.xml');
-        }
+        $container->setParameter('oryzone_media_storage.cdn.cdn_factory.cdns', $config['cdns']);
+        $container->setParameter('oryzone_media_storage.context.context_factory.contexts', $config['contexts']);
+
+        $container->setParameter('oryzone_media_storage.default_cdn', $config['defaultCdn']);
+        $container->setParameter('oryzone_media_storage.default_context', $config['defaultContext']);
+        $container->setParameter('oryzone_media_storage.default_filesystem', $config['defaultFilesystem']);
+        $container->setParameter('oryzone_media_storage.default_provider', $config['defaultProvider']);
+        $container->setParameter('oryzone_media_storage.default_naming_strategy', $config['defaultNamingStrategy']);
+        $container->setParameter('oryzone_media_storage.default_variant', $config['defaultVariant']);
     }
 }
