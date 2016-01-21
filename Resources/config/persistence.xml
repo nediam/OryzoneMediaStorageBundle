@@ -15,7 +15,8 @@
         </service>
 
         <!-- oryzone_media_storage.persistence.adapter.doctrine.object_manager -->
-        <service id="oryzone_media_storage.persistence.adapter.doctrine.object_manager" factory-service="doctrine" factory-method="getManager" class="Doctrine\ORM\EntityManager" public="false">
+        <service id="oryzone_media_storage.persistence.adapter.doctrine.object_manager" class="Doctrine\ORM\EntityManager" public="false">
+            <factory service="doctrine" method="getManager" />
             <argument>%oryzone_media_storage.persistence.adapter.doctrine.model_manager_name%</argument>
         </service>
 
