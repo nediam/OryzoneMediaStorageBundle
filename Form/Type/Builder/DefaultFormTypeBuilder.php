@@ -12,6 +12,7 @@ namespace Oryzone\Bundle\MediaStorageBundle\Form\Type\Builder;
  */
 
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class DefaultFormTypeBuilder implements FormTypeBuilderInterface
 {
@@ -21,7 +22,7 @@ class DefaultFormTypeBuilder implements FormTypeBuilderInterface
      */
     public function buildMediaType(FormBuilderInterface $builder, $options = array())
     {
-        $type = (isset($options['type']))? $options['type'] : 'file';
+        $type = (isset($options['type']))? $options['type'] : FileType::class;
         $fieldOptions = array();
         if(isset($options['edit']) && $options['edit'] == TRUE)
             $fieldOptions = array('required' => FALSE);

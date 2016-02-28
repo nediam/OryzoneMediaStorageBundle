@@ -12,12 +12,12 @@ namespace Oryzone\Bundle\MediaStorageBundle\Form\Type;
  */
 use Symfony\Component\Form\AbstractType,
     Symfony\Component\Form\FormBuilderInterface,
-    Symfony\Component\OptionsResolver\OptionsResolverInterface,
     Symfony\Component\Form\FormEvent,
     Symfony\Component\Form\FormEvents;
 
 use Oryzone\MediaStorage\MediaStorageInterface,
     Oryzone\Bundle\MediaStorageBundle\Form\Type\Builder\FormTypeBuilderFactoryInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MediaType extends AbstractType
 {
@@ -82,24 +82,16 @@ class MediaType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array('context'))
-                 ->setOptional(array('name', 'showName', 'edit'))
+                 ->setDefined(array('name', 'showName', 'edit', 'context'))
                  ->setDefaults(array(
                         'data_class' => $this->class,
                         'context'    => null,
                         'showName'  => TRUE,
                         'edit'      => FALSE
                  ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        return 'form';
     }
 
     /**
